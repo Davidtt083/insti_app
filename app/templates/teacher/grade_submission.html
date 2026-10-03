@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Calificar entrega{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h4 class="mb-1"><i class="bi bi-pencil-square"></i> {{ submission.assignment.title }}</h4>
+                <p class="text-muted">Estudiante: {{ submission.student.name }} &middot; Enviado: {{ submission.submitted_at|fecha }}</p>
+                <a href="{{ url_for('teacher.download_submission', submission_id=submission.id) }}" class="btn btn-sm btn-outline-secondary mb-3">
+                    <i class="bi bi-download"></i> Descargar archivo entregado
+                </a>
+                <hr>
+                <form method="POST" novalidate>
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.grade.label(class="form-label") }}
+                        {{ form.grade(class="form-control") }}
+                        {% for error in form.grade.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.teacher_feedback.label(class="form-label") }}
+                        {{ form.teacher_feedback(class="form-control", rows="4", placeholder="Retroalimentacion pastoral / pedagogica") }}
+                    </div>
+                    {{ form.submit(class="btn btn-primary") }}
+                    <a href="{{ url_for('teacher.review_submissions', assignment_id=submission.assignment_id) }}" class="btn btn-outline-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

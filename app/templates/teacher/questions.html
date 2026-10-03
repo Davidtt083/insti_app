@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Bandeja de consultas{% endblock %}
+{% block content %}
+<h3 class="mb-4"><i class="bi bi-chat-dots"></i> Bandeja de consultas</h3>
+
+<h5 class="mb-3">Pendientes <span class="badge bg-warning text-dark">{{ pending|length }}</span></h5>
+{% if not pending %}
+    <p class="text-muted">No hay preguntas pendientes.</p>
+{% else %}
+    {% for q in pending %}
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-body d-flex justify-content-between align-items-start">
+            <div>
+                <p class="mb-1"><strong>{{ q.student.name }}</strong> &mdash; {{ q.assignment.title }} ({{ q.assignment.course.title }})</p>
+                <p class="mb-0">{{ q.question_text }}</p>
+                <small class="text-muted">{{ q.created_at|fecha }}</small>
+            </div>
+            <a href="{{ url_for('teacher.answer_question', question_id=q.id) }}" class="btn btn-sm btn-primary">
+                <i class="bi bi-reply"></i> Responder
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<h5 class="mt-4 mb-3">Respondidas</h5>
+{% if not answered %}
+    <p class="text-muted">Aun no has respondido ninguna consulta.</p>
+{% else %}
+    {% for q in answered %}
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-body">
+            <p class="mb-1"><strong>{{ q.student.name }}</strong> &mdash; {{ q.assignment.title }}</p>
+            <p class="mb-1 text-muted">{{ q.question_text }}</p>
+            <p class="mb-0 fst-italic">"{{ q.answer_text }}"</p>
+            <small class="text-muted">Respondido: {{ q.answered_at|fecha }}</small>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+{% endblock %}

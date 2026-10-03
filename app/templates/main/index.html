@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Bienvenido{% endblock %}
+{% block content %}
+<div class="hero-section text-center py-5">
+    <i class="bi bi-book-half display-1 text-primary"></i>
+    <h1 class="mt-3">Sistema de Gestion Academica</h1>
+    <p class="lead text-muted">Instituto Biblico &mdash; Formacion con excelencia para el ministerio</p>
+    <div class="mt-4">
+        <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg me-2"><i class="bi bi-box-arrow-in-right"></i> Iniciar sesion</a>
+        <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary btn-lg"><i class="bi bi-person-plus"></i> Crear cuenta</a>
+    </div>
+</div>
+
+<div class="row mt-5 g-4">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body text-center">
+                <i class="bi bi-journal-bookmark display-6 text-primary"></i>
+                <h5 class="card-title mt-3">Cursos y materias</h5>
+                <p class="card-text text-muted">Hermeneutica, Teologia Sistematica, Epistolas Paulinas y mas.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body text-center">
+                <i class="bi bi-clipboard-check display-6 text-primary"></i>
+                <h5 class="card-title mt-3">Tareas y entregas</h5>
+                <p class="card-text text-muted">Entrega tus trabajos en PDF, Word o imagen de forma segura.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body text-center">
+                <i class="bi bi-chat-dots display-6 text-primary"></i>
+                <h5 class="card-title mt-3">Consultas pastorales</h5>
+                <p class="card-text text-muted">Plantea tus dudas y recibe retroalimentacion de tus profesores.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

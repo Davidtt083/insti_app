@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Panel del profesor{% endblock %}
+{% block content %}
+
+<div class="verse-banner p-4 mb-4 rounded shadow-sm">
+    <i class="bi bi-quote fs-2"></i>
+    <p class="fs-5 fst-italic mb-1">"{{ verse_text }}"</p>
+    <p class="mb-0 text-end fw-bold">&mdash; {{ verse_ref }}</p>
+</div>
+
+<h3 class="mb-4">Bienvenido, {{ current_user.name }} <span class="text-muted fs-6">(Profesor)</span></h3>
+
+<div class="row g-4">
+    <!-- Boton: Cursos activos -->
+    <div class="col-md-4">
+        <a href="{{ url_for('teacher.courses') }}" class="text-decoration-none text-dark d-block h-100">
+            <div class="card shadow-sm border-0 h-100 stat-card">
+                <div class="card-body text-center d-flex flex-column justify-content-center p-4">
+                    <i class="bi bi-journal-bookmark display-6 text-primary"></i>
+                    <h2 class="mt-2 mb-1 fw-bold text-dark">{{ course_count }}</h2>
+                    <p class="text-muted mb-3">Cursos activos</p>
+                    <span class="btn btn-sm btn-outline-primary mt-auto">
+                        <i class="bi bi-arrow-right-circle"></i> Ver cursos
+                    </span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Boton: Entregas por calificar -->
+    <div class="col-md-4">
+        <a href="{{ url_for('teacher.assignments') }}" class="text-decoration-none text-dark d-block h-100">
+            <div class="card shadow-sm border-0 h-100 stat-card">
+                <div class="card-body text-center d-flex flex-column justify-content-center p-4">
+                    <i class="bi bi-hourglass-split display-6 text-warning"></i>
+                    <h2 class="mt-2 mb-1 fw-bold text-dark">{{ pending_grading }}</h2>
+                    <p class="text-muted mb-3">Entregas por calificar</p>
+                    <span class="btn btn-sm btn-outline-warning mt-auto text-dark">
+                        <i class="bi bi-arrow-right-circle"></i> Revisar tareas
+                    </span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Boton: Dudas sin responder -->
+    <div class="col-md-4">
+        <a href="{{ url_for('teacher.questions_inbox') }}" class="text-decoration-none text-dark d-block h-100">
+            <div class="card shadow-sm border-0 h-100 stat-card">
+                <div class="card-body text-center d-flex flex-column justify-content-center p-4">
+                    <i class="bi bi-chat-dots display-6 text-info"></i>
+                    <h2 class="mt-2 mb-1 fw-bold text-dark">{{ unanswered_questions }}</h2>
+                    <p class="text-muted mb-3">Dudas sin responder</p>
+                    <span class="btn btn-sm btn-outline-info mt-auto text-dark">
+                        <i class="bi bi-arrow-right-circle"></i> Ver consultas
+                    </span>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{{ url_for('teacher.assignments') }}" class="btn btn-primary me-2"><i class="bi bi-clipboard-check"></i> Gestionar tareas</a>
+    <a href="{{ url_for('teacher.questions_inbox') }}" class="btn btn-outline-secondary"><i class="bi bi-chat-dots"></i> Ver consultas</a>
+</div>
+{% endblock %}

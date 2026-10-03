@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Mis consultas{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3><i class="bi bi-chat-dots"></i> Historial de mis consultas</h3>
+    <a href="{{ url_for('student.tasks') }}" class="btn btn-sm btn-outline-primary">
+        <i class="bi bi-list-task"></i> Ver mis tareas
+    </a>
+</div>
+
+{% if not questions %}
+    <div class="card shadow-sm border-0 p-4 text-center">
+        <p class="text-muted mb-0">Aun no has realizado consultas en ninguna tarea.</p>
+    </div>
+{% else %}
+    {% for q in questions %}
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <h6 class="card-title mb-0">
+                    <span class="text-muted">{{ q.assignment.course.title }} &middot;</span> {{ q.assignment.title }}
+                </h6>
+                {% if q.status == "respondida" %}
+                    <span class="badge bg-success"><i class="bi bi-check-circle"></i> Respondida</span>
+                {% else %}
+                    <span class="badge bg-secondary"><i class="bi bi-hourglass-split"></i> Pendiente</span>
+                {% endif %}
+            </div>
+            <p class="mb-2"><strong>Mi pregunta:</strong> {{ q.question_text }}</p>
+            {% if q.status == "respondida" %}
+                <div class="bg-light p-3 rounded border-start border-3 border-success mt-2">
+                    <p class="mb-1 text-dark"><strong>Respuesta del profesor:</strong></p>
+                    <p class="mb-0 fst-italic">"{{ q.answer_text }}"</p>
+                    <small class="text-muted d-block mt-2">
+                        &mdash; {{ q.teacher.name if q.teacher else "Profesor" }} &middot; {{ q.answered_at|fecha }}
+                    </small>
+                </div>
+            {% else %}
+                <small class="text-muted">Enviada el: {{ q.created_at|fecha }}</small>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+{% endblock %}

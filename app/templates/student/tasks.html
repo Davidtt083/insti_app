@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Mis tareas{% endblock %}
+{% block content %}
+<h3 class="mb-4"><i class="bi bi-list-task"></i> Mis tareas</h3>
+
+{% if not assignments %}
+    <p class="text-muted">Aun no hay tareas publicadas.</p>
+{% else %}
+<div class="table-responsive">
+    <table class="table table-hover align-middle bg-white shadow-sm rounded">
+        <thead class="table-light">
+            <tr>
+                <th>Curso</th>
+                <th>Tarea</th>
+                <th>Fecha limite</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for a in assignments %}
+            {% set sub = my_submissions.get(a.id) %}
+            <tr>
+                <td>{{ a.course.title }}</td>
+                <td>{{ a.title }}</td>
+                <td>{{ a.due_date|fecha }}</td>
+                <td>
+                    {% if sub %}
+                        {% if sub.status == "Calificada" %}
+                            <span class="badge bg-success">Calificada</span>
+                        {% elif sub.status == "Entregada con retraso" %}
+                            <span class="badge bg-warning text-dark">Entregada con retraso</span>
+                        {% else %}
+                            <span class="badge bg-primary">A tiempo</span>
+                        {% endif %}
+                    {% else %}
+                        <span class="badge bg-secondary">Pendiente de calificacion</span>
+                    {% endif %}
+                </td>
+                <td class="text-end">
+                    <a href="{{ url_for('student.submit_assignment', assignment_id=a.id) }}" class="btn btn-sm btn-outline-primary">
+                        {% if sub %}<i class="bi bi-arrow-repeat"></i> Ver / Reenviar{% else %}<i class="bi bi-upload"></i> Entregar{% endif %}
+                    </a>
+                    <a href="{{ url_for('student.questions', assignment_id=a.id) }}" class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-chat-dots"></i> Consultas
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

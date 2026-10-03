@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Mis calificaciones{% endblock %}
+{% block content %}
+<h3 class="mb-4"><i class="bi bi-award"></i> Mis calificaciones</h3>
+
+{% if not submissions %}
+    <p class="text-muted">Aun no tienes entregas registradas.</p>
+{% else %}
+{% for s in submissions %}
+<div class="card shadow-sm border-0 mb-3">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <h5 class="card-title mb-1">{{ s.assignment.title }}</h5>
+                <p class="text-muted mb-1">{{ s.assignment.course.title }} &middot; Entregado: {{ s.submitted_at|fecha }}</p>
+            </div>
+            {% if s.grade %}
+                <span class="badge bg-success fs-6">{{ s.grade }}</span>
+            {% else %}
+                <span class="badge bg-secondary fs-6">Pendiente de calificar</span>
+            {% endif %}
+        </div>
+        {% if s.teacher_feedback %}
+            <hr>
+            <p class="mb-0"><strong>Retroalimentacion del profesor:</strong></p>
+            <p class="mb-0 fst-italic">{{ s.teacher_feedback }}</p>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Responder consulta{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h5 class="mb-1">{{ question.assignment.title }}</h5>
+                <p class="text-muted">{{ question.student.name }} &middot; {{ question.created_at|fecha }}</p>
+                <p class="border-start border-3 ps-3">{{ question.question_text }}</p>
+                <hr>
+                <form method="POST" novalidate>
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.answer_text.label(class="form-label") }}
+                        {{ form.answer_text(class="form-control", rows="4") }}
+                        {% for error in form.answer_text.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                    </div>
+                    {{ form.submit(class="btn btn-primary") }}
+                    <a href="{{ url_for('teacher.questions_inbox') }}" class="btn btn-outline-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

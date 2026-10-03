@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Gestionar alumnos - {{ course.title }}{% endblock %}
+{% block content %}
+<div class="mb-3">
+    <a href="{{ url_for('teacher.courses') }}" class="btn btn-sm btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Volver a cursos
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h4><i class="bi bi-people"></i> Alumnos inscritos</h4>
+                <p class="text-muted mb-4">Curso: <strong>{{ course.title }}</strong></p>
+
+                <form method="POST" novalidate>
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.student_ids.label(class="form-label fw-bold") }}
+                        {{ form.student_ids(class="form-select", size="8") }}
+                        <div class="form-text mt-2">
+                            Usa <kbd>Ctrl + Clic</kbd> (o <kbd>Cmd + Clic</kbd> en Mac) para agregar o quitar alumnos de la selección.
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        {{ form.submit(class="btn btn-primary") }}
+                        <a href="{{ url_for('teacher.courses') }}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

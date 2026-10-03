@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Panel del estudiante{% endblock %}
+{% block content %}
+
+<div class="verse-banner p-4 mb-4 rounded shadow-sm">
+    <i class="bi bi-quote fs-2"></i>
+    <p class="fs-5 fst-italic mb-1">"{{ verse_text }}"</p>
+    <p class="mb-0 text-end fw-bold">&mdash; {{ verse_ref }}</p>
+</div>
+
+<h3 class="mb-4">Hola, {{ current_user.name }} <span class="text-muted fs-6">(Estudiante)</span></h3>
+
+<div class="row g-4">
+    <!-- Boton: Tareas pendientes -->
+    <div class="col-md-4">
+        <a href="{{ url_for('student.tasks') }}" class="text-decoration-none text-dark d-block h-100">
+            <div class="card shadow-sm border-0 h-100 stat-card">
+                <div class="card-body text-center d-flex flex-column justify-content-center p-4">
+                    <i class="bi bi-hourglass-split display-6 text-warning"></i>
+                    <h2 class="mt-2 mb-1 fw-bold text-dark">{{ pending_count }}</h2>
+                    <p class="text-muted mb-3">Tareas pendientes</p>
+                    <span class="btn btn-sm btn-outline-warning mt-auto text-dark">
+                        <i class="bi bi-arrow-right-circle"></i> Ir a mis tareas
+                    </span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Boton: Entregas calificadas -->
+    <div class="col-md-4">
+        <a href="{{ url_for('student.grades') }}" class="text-decoration-none text-dark d-block h-100">
+            <div class="card shadow-sm border-0 h-100 stat-card">
+                <div class="card-body text-center d-flex flex-column justify-content-center p-4">
+                    <i class="bi bi-award display-6 text-success"></i>
+                    <h2 class="mt-2 mb-1 fw-bold text-dark">{{ graded_count }}</h2>
+                    <p class="text-muted mb-3">Entregas calificadas</p>
+                    <span class="btn btn-sm btn-outline-success mt-auto">
+                        <i class="bi bi-arrow-right-circle"></i> Ver calificaciones
+                    </span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Boton: Dudas respondidas -->
+    <div class="col-md-4">
+        <a href="{{ url_for('student.my_questions') }}" class="text-decoration-none text-dark d-block h-100">
+            <div class="card shadow-sm border-0 h-100 stat-card">
+                <div class="card-body text-center d-flex flex-column justify-content-center p-4">
+                    <i class="bi bi-chat-dots display-6 text-info"></i>
+                    <h2 class="mt-2 mb-1 fw-bold text-dark">{{ answered_questions }}</h2>
+                    <p class="text-muted mb-3">Dudas respondidas</p>
+                    <span class="btn btn-sm btn-outline-info mt-auto text-dark">
+                        <i class="bi bi-arrow-right-circle"></i> Ver respuestas
+                    </span>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{{ url_for('student.tasks') }}" class="btn btn-primary me-2"><i class="bi bi-list-task"></i> Ver mis tareas</a>
+    <a href="{{ url_for('student.my_questions') }}" class="btn btn-outline-secondary"><i class="bi bi-chat-dots"></i> Mis consultas</a>
+</div>
+{% endblock %}
